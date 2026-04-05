@@ -1,0 +1,44 @@
+@model AspnetCoreMvcFull.ViewModels.Mail.InboxViewModel
+@{
+  ViewData["Title"] = "Inbox";
+}
+
+<h4>@Model.AccountDisplayName - @Model.FolderName</h4>
+
+@if (TempData["MailNotice"] is string notice)
+{
+  <div class="alert alert-success">@notice</div>
+}
+
+@if (!Model.Messages.Any())
+{
+  <p>No messages are synced yet. Connect Gmail/Outlook and run sync.</p>
+}
+else
+{
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>From</th>
+        <th>Subject</th>
+        <th>Received</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var message in Model.Messages)
+      {
+        <tr>
+          <td>@message.FromDisplay</td>
+          <td>
+            <a asp-action="Message" asp-route-accountId="@Model.AccountDisplayName" asp-route-messageId="@message.MessageId">
+              @message.Subject
+            </a>
+          </td>
+          <td>@message.ReceivedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+<a class="btn btn-primary" asp-action="Compose" asp-route-accountId="@Model.AccountDisplayName">Compose</a>

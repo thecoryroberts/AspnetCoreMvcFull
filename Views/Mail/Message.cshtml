@@ -1,0 +1,17 @@
+@model AspnetCoreMvcFull.ViewModels.Mail.MessageDetailViewModel
+@{
+  ViewData["Title"] = "Message";
+}
+
+<h4>@Model.Subject</h4>
+<p><strong>From:</strong> @Model.From</p>
+<p><strong>Received:</strong> @Model.ReceivedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</p>
+
+@if (!string.IsNullOrWhiteSpace(Model.BodyHtml))
+{
+  <div class="card card-body">@Html.Raw(Model.BodyHtml)</div>
+}
+else
+{
+  <pre>@Model.BodyText</pre>
+}
