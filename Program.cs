@@ -1,3 +1,4 @@
+using AspnetCoreMvcFull.Services.Email;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using AspnetCoreMvcFull.Data;
@@ -10,6 +11,10 @@ builder.Services.AddDbContext<AspnetCoreMvcFullContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("AspnetCoreMvcFullContext") ?? throw new InvalidOperationException("Connection string 'AspnetCoreMvcFullContext' not found.")));
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddScoped<IEmailProvider, GmailEmailProvider>();
+builder.Services.AddScoped<IEmailProvider, OutlookEmailProvider>();
+builder.Services.AddScoped<IEmailSyncService, EmailSyncService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

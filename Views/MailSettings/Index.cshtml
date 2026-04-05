@@ -1,0 +1,33 @@
+@model AspnetCoreMvcFull.ViewModels.Mail.MailSettingsViewModel
+@{
+  ViewData["Title"] = "Mail Settings";
+}
+
+<h4>Connected Email Accounts</h4>
+
+@if (!Model.Accounts.Any())
+{
+  <p>No accounts are connected yet.</p>
+}
+else
+{
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Provider</th>
+        <th>Token Expires (UTC)</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var account in Model.Accounts)
+      {
+        <tr>
+          <td>@account.EmailAddress</td>
+          <td>@account.Provider</td>
+          <td>@account.TokenExpiresUtc</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

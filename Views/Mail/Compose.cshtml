@@ -1,0 +1,30 @@
+@model AspnetCoreMvcFull.ViewModels.Mail.ComposeMessageViewModel
+@{
+  ViewData["Title"] = "Compose";
+}
+
+<h4>Compose Message</h4>
+
+<form asp-action="Compose" method="post">
+  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+  <input asp-for="AccountId" type="hidden" />
+
+  <div class="mb-3">
+    <label asp-for="To" class="form-label"></label>
+    <input asp-for="To" class="form-control" />
+    <span asp-validation-for="To" class="text-danger"></span>
+  </div>
+
+  <div class="mb-3">
+    <label asp-for="Subject" class="form-label"></label>
+    <input asp-for="Subject" class="form-control" />
+    <span asp-validation-for="Subject" class="text-danger"></span>
+  </div>
+
+  <div class="mb-3">
+    <label asp-for="BodyText" class="form-label"></label>
+    <textarea asp-for="BodyText" class="form-control" rows="6"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Send</button>
+</form>
